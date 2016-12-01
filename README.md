@@ -12,10 +12,4 @@ $ vagrant up
 
 ### Web Application
 
-http://192.168.33.30/
-
-### phpPgAdmin
-
-http://192.168.33.30/phpPgAdmin/
-
-
+http://192.168.33.50/
