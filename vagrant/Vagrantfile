@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.network "forwarded_port", id: "postgres", guest: 5432, host: 54321, protocol: 'tcp'
   # config.vm.network "forwarded_port", id: "mysql", guest: 3306, host: 3306, protocol: 'tcp'
   # config.vm.synced_folder "../.", "/home/vagrant/workspace/.", type: "nfs"
-  config.vm.synced_folder "../.", "/var/www/html/.", :mount_options => ['dmode=777', 'fmode=777']
+  config.vm.synced_folder "../.", "/var/www/html/.", :mount_options => ['dmode=777', 'fmode=777'], create: true
 
   # workaround for windows error
   # see http://blog.cles.jp/item/5698
@@ -44,14 +44,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         /sbin/iptables -F
         /sbin/service iptables stop
         /sbin/chkconfig iptables off
-        # Apache
-        yum -y install httpd
-        /sbin/service httpd restart
-        /sbin/chkconfig httpd on
+
+        sudo yum -y install git
+        sudo yum install epel-release
+        sudo yum install nodejs npm --enablerepo=epel
+
+        sudo service httpd restart
 
         cd /var/www/html/
         git clone https://github.com/angular/quickstart.git quickstart
         cd quickstart
+        sudo npm update -g npm
         npm install
         npm start
   EOT
@@ -65,8 +68,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # end
   #end
 
-  config.vm.provision :shell, run: "always", :inline => <<-EOT
-      sudo service httpd restart
-  EOT
+
 
 end
