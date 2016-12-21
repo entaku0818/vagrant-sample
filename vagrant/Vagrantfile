@@ -45,19 +45,33 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         /sbin/service iptables stop
         /sbin/chkconfig iptables off
 
-        sudo yum -y install git
-        sudo yum install epel-release
-        sudo yum install nodejs npm --enablerepo=epel
+        # node.js install
+        sudo yum -y install epel-release
+        sudo yum -y install npm --enablerepo=epel
 
         sudo service httpd restart
+        yum -y install httpd-devel libxml2-devel
+        sudo yum install
 
-        cd /var/www/html/
-        git clone https://github.com/angular/quickstart.git quickstart
-        cd quickstart
+        cd /var/www/html/quickstart
         sudo npm update -g npm
         npm install
-        npm start
-  EOT
+
+        npm i -g typescript
+
+        git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+        git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+        echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+        echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+        rbenv install 2.3.0
+
+        gem update --system
+        gem install --no-ri --no-rdoc rails
+        gem install bundler
+        rbenv rehash
+
+EOT
 
   #if ARGV[0] == 'up'
     # 先に Ansible 1.x をインストールさせる
