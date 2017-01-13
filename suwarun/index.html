@@ -1,28 +1,30 @@
-<!doctype html>
-
 <html>
-	<head>
-		<title>JSC Demo</title>
 
-		<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="./main.css">
+  <head>
+    <title>Hello</title>
+  </head>
+  <body>
 
-	</head>
+		<div class="square container">
+			<div class="square area1">
+				<div>
+					 <img class="leftward chair" src='./images/free-chair.png'>
+				</div>
+			</div>
+			<div class="square area2">
+				<div class="circle"></div>
 
-	<body>
-		<div class="demo">
-	 <div id="seat-map">
-	 	<div class="front"></div>
- 	</div>
+				<div id='chair'>
+					 <img v-on:click="chair_change_status" class="leftward chair" :src="imageUrl">
+				</div>
+			</div>
+			<div class="square area3">
+				<div class="circle"></div>
+			</div>
+		</div>
+  </body>
+	<script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
+	<script type="text/javascript" src="./main.js"></script>
 
-
-</div>
-
-		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
-		<script>
-
-
-
-		</script>
-	</body>
 </html>

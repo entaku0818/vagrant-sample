@@ -1,0 +1,35 @@
+<html>
+
+	<link rel="stylesheet" type="text/css" href="./main.css">
+  <head>
+    <title>Hello</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+    </div>
+		<div id="example-3">
+  		<button v-on:click="say('hi')">Say hi</button>
+ 		 <button v-on:click="say('what')">Say what</button>
+		</div>
+		<div class="square"></div>
+  </body>
+	<script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
+	<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'hello'
+		}
+	})
+
+	var example = new Vue({
+  el: '#example-3',
+  methods: {
+    say: function (message) {
+      alert(message)
+    }
+  }
+})
+	</script>
+</html>
