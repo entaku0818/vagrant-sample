@@ -2,22 +2,26 @@
 
 	<link rel="stylesheet" type="text/css" href="./main.css">
   <head>
-    <title>Hello</title>
+    <title>すわるん</title>
   </head>
   <body>
 
 		<div class="square container">
 			<div class="square area1">
-				<div>
-					 <img class="leftward chair" src='./images/free-chair.png'>
-				</div>
-			</div>
-			<div class="square area2">
-				<div class="circle"></div>
-
-				<div id='chair'>
+				<div id='reserved_chair_1'>
 					 <img v-on:click="chair_change_status" class="leftward chair" :src="imageUrl">
 				</div>
+
+			</div>
+			<div class="square area2">
+
+					<div id="conferenceRoom">
+  					<chair></chair>
+  					<chair></chair>
+ 					 <chair></chair>
+					</div>
+
+
 			</div>
 			<div class="square area3">
 				<div class="circle"></div>
