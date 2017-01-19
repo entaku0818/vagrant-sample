@@ -15,16 +15,33 @@
 			</div>
 			<div class="square area2">
 
-					<div id="conferenceRoom">
-  					<chair></chair>
-  					<chair></chair>
- 					 <chair></chair>
+					<div v-on:click="change_status" id="conferenceRoom" >
+  					<chair reserved={{reserved}} ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+						<chair reserved=reserved ></chair>
+
 					</div>
 
 
 			</div>
 			<div class="square area3">
-				<div class="circle"></div>
+				<div id="freeSpace">
+					<freespacetable reserved=reserved ></freespacetable>
+				</div>
 			</div>
 		</div>
   </body>

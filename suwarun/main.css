@@ -48,5 +48,8 @@
 		height: 50px;
 }
 .leftward {
+	  transform: rotate( 90deg );
+}
+.rightward {
 	  transform: rotate( -90deg );
 }
