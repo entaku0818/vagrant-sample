@@ -20,19 +20,25 @@ var example2 = new Vue({
 
 
 
-var chair = Vue.extend({
 
-	  props: ['reserved'],
-
+Vue.component('chair', {
+	  props: ['isReserved'],
+		methods: {
+		change: function(){
+				if ( this.isReserved ){
+					this.isReserved = false
+				}else if (!this.isReserved) {
+					this.isReserved = true
+				}
+			},
+		},
 		computed: {
 			URL : function(){
-
-					if (this.reserved) {
+					if (this.isReserved) {
 						return './images/reserved-chair.png'
 					}else {
 						return './images/free-chair.png'
 					}
-
 			}
 		},
 		template: '<img v-bind:src="URL" class="leftward chair">'
@@ -40,12 +46,8 @@ var chair = Vue.extend({
 
 var conferenceRoom = new Vue({
 		el: '#conferenceRoom',
-		components: {
-				'chair': chair
-		},
 		data: function(){
 			reserved : false
-
 		},
 		methods: {
 			change_status: function (event) {
@@ -79,7 +81,6 @@ var table = Vue.extend({
 					}else {
 						return './images/free-chair.png'
 					}
-
 			}
 		},
 		template: '<img v-bind:src="chairURL" class="rightward chair"><div class="circle"></div><img v-bind:src="chairURL" class="leftward chair">'
