@@ -17,8 +17,8 @@
 
 					<div v-on:click="change_status" id="conferenceRoom" >
   					<chair reserved=reserved ></chair>
-						<chair is-reserved="reserved" ></chair>
-						<chair reserved=reserved ></chair>
+						<chair v-bind:is-reserved="false" ></chair>
+						<chair v-bind:is-reserved=reserved ></chair>
 						<chair reserved=reserved ></chair>
 						<chair reserved=reserved ></chair>
 						<chair reserved=reserved ></chair>

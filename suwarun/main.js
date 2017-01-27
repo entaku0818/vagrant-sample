@@ -23,6 +23,9 @@ var example2 = new Vue({
 
 Vue.component('chair', {
 	  props: ['isReserved'],
+		data: function(){
+			reserved : true
+		},
 		methods: {
 		change: function(){
 				if ( this.isReserved ){
@@ -47,7 +50,7 @@ Vue.component('chair', {
 var conferenceRoom = new Vue({
 		el: '#conferenceRoom',
 		data: function(){
-			reserved : false
+			reserved : true
 		},
 		methods: {
 			change_status: function (event) {
