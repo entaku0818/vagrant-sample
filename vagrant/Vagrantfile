@@ -71,6 +71,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         gem install bundler
         rbenv rehash
 
+				wget http://www.python.org/ftp/python/3.3.0/Python-3.3.0.tgz
+
+				# pytインストール
+				tar zxvf Python-3.3.0.tgz
+				cd Python-3.3.0
+				./configure \
+				--prefix=/usr/local/python \
+				--enable-shared
+				make && make install
+
+					sudo python setup-tool/get-pip.py
+EOT
+
+config.vm.provision :shell, run: "always", :inline => <<-EOT
+
+		sudo service httpd restart
+
 EOT
 
   #if ARGV[0] == 'up'
