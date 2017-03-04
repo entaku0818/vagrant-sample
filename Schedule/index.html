@@ -20,73 +20,48 @@
   }
 </style>
 <script type="text/javascript">
+
+
 jQuery(document).ready(function(){
-    var $sc = jQuery("#schedule").timeSchedule({
-        startTime: "09:00", // schedule start time(HH:ii)
-        endTime: "24:00",   // schedule end time(HH:ii)
-        widthTime:60 * 10,  // cell timestamp example 10 minutes
-        timeLineY:100,       // height(px)
-        timeLineBorder:2,   // border(top and bottom)
-        debug:"#debug",     // debug string output elements
-        rows : {
-            '1' : {
-                title : '遠藤',
-                schedule:[
-                    {
-                        start:'17:00',
-                        end:'19:00',
-                        text:'勉強会@desknet\'s',
-                        data:{
-                        }
-                    },
-                    {
-                        start:'',
-                        end:'',
-                        text:'Text Area',
-                        data:{
-                        }
-                    }
-                ]
-            },
-            '2' : {
-                title : '中村',
-                schedule:[
-                    {
-                        start:'16:00',
-                        end:'17:00',
-                        text:'Text Area',
-                        data:{
-                        }
-                    }
-                ]
-            },
-						'6999' : {
-								title : 'test',
-								schedule:[
-										{
-												start:'16:00',
-												end:'17:00',
-												text:'Text Area',
-												data:{
-												}
-										}
-								]
-						}
-        },
-        change: function(node,data){
-            alert("change event");
-        },
-        init_data: function(node,data){
-        },
-        click: function(node,data){
-            alert("click event");
-        },
-        append: function(node,data){
-        },
-        time_click: function(time,data){
-            alert("time click event");
-        },
-    });
+
+  $.ajax({
+  type: 'GET',
+  url: 'http://192.168.33.50/Schedule/schedule.json',
+  dataType: 'json',
+  success: function(response) {
+      var scheduleList = response;
+      console.log(scheduleList);
+      var $sc = jQuery("#schedule").timeSchedule({
+          startTime: "09:00", // schedule start time(HH:ii)
+          endTime: "24:00",   // schedule end time(HH:ii)
+          widthTime:60 * 10,  // cell timestamp example 10 minutes
+          timeLineY:100,       // height(px)
+          timeLineBorder:2,   // border(top and bottom)
+          debug:"#debug",     // debug string output elements
+          rows : scheduleList,
+          change: function(node,data){
+              alert("change event");
+          },
+          init_data: function(node,data){
+          },
+          click: function(node,data){
+              alert("click event");
+          },
+          append: function(node,data){
+          },
+          time_click: function(time,data){
+              alert("time click event");
+          },
+      });
+  },
+  error: function() {
+      alert('えらぁ');
+  },
+  complete: function() {
+      alert('こんぷりーと');
+  }
+});
+
 });
 </script>
 </head>
