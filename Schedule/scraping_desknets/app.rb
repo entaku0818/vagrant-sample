@@ -1,8 +1,8 @@
 require 'nokogiri'
+require 'json'
 
 
-
-
+json_file_path = '../schedule.json'
 
 
 
@@ -13,41 +13,49 @@ require 'nokogiri'
 			#p doc.xpath('//*[@id="jsch-schweekgrp"]/form/div[3]/div[3]')
 			#p doc.xpath('//*[@id="jsch-schweekgrp"]/form/div[3]/div[3]/div[2]/table/tbody/tr/td[1]/div')
 
-				schedules = []
+				schedules = {}
+				names = []
 
-			doc.css(".jsch-members-group-cal").each do |node|
-				userId = node.xpath("./@data-target").to_s;
-				p '★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★'
-				#p node
-				p '★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★'
+				doc.css(".sch-gcal-target-header").each do |node|
+					userId = node.xpath("./@data-target").to_s;
 
-				dayPlans = [];
-				node.xpath("./div/div/div").each do |item|
-					startTime = item.xpath("./div[1]/a/@title").to_s.slice(0..4)
-					endTime = item.xpath("./div[1]/a/@title").to_s.slice(8..12)
-					plan = item.xpath("./div[1]/a/text()").to_s
-					dayPlans = {
-						userId => {
-							start: startTime,
-							end: endTime,
-							text: plan
-						}
-					}
+					name = node.xpath("./div/a/text()").to_s;
+					names.push('userId'=> userId, 'name' => name)
+
 				end
 
-								schedules.push(dayPlans);
-			end
 
 
-			names = []
-
-			doc.css(".sch-gcal-target-header").each do |node|
+			doc.css(".cal-h-meter.sch-cal-body.other.jsch-cal.jsch-members-group-cal").each do |node|
 				userId = node.xpath("./@data-target").to_s;
-			#	p '★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★'
-			#	p '★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★'
-				name = node.xpath("./div/a/text()").to_s;
-				names.push(userId,name)
+				dayPlans = [];
+				node.xpath("./div/div/div/div").each do |item|
+					p item.to_s
+					startTime = item.xpath("./a/@title").to_s.slice(0..4)
+					endTime = item.xpath("./a/@title").to_s.slice(8..12)
+					plan = item.xpath("./a/text()").to_s
+					dayPlans.push({
+						start: startTime,
+						end: endTime,
+						text: plan
+					})
+				end
+				userName = ""
 
+				names.each do |name|
+					if name["userId"] == userId
+						userName = name["name"]
+					end
+				end
+				p userId
+				schedules[userId] =
+					{
+						'title' => userName,
+						'schedule' => dayPlans,
+					}
+				;
 			end
-			p names
-			p schedules
+
+			File.open(json_file_path, 'w') do |file|
+				file.puts(JSON.pretty_generate(schedules))
+			end

@@ -35,7 +35,6 @@ casper.then(function(){
 
 	    var fs = require('fs');
 	    fs.write('./html.html', html, 'w');
-			fs.write('./list.html', list, 'w');
 		});
 });
 
