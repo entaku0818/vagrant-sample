@@ -15,7 +15,6 @@
 	float:left;
 	height:26px;
 	position:relative;
-	overflow:hidden;
 }
 #schedule .sc_menu .sc_header .sc_time{
 	text-align:center;
@@ -52,12 +51,9 @@
 #schedule .sc_main_box,
 #schedule .sc_data{
 	max-height:500px;
-	overflow:hidden;
 }
 #schedule .sc_main_box{
 	float:left;
-	overflow-x:auto;
-	overflow-y:auto;
 }
 #schedule .sc_main_scroll{
 }
@@ -100,7 +96,7 @@
 	border-bottom:solid 2px #666;
 }
 #schedule .sc_data .timeline{
-	overflow:hidden;
+	background-color: #000000;
 }
 #schedule .sc_data .timeline span{
 	padding:10px;

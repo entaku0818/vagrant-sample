@@ -2,13 +2,13 @@ require 'nokogiri'
 require 'json'
 
 
-json_file_path = '../schedule.json'
+json_file_path = '../facility_schedule.json'
 
 
 
 
 
-			html = File.read('./html.html')
+			html = File.read('./facility.html')
 			doc = Nokogiri::HTML(html)
 			#p doc.xpath('//*[@id="jsch-schweekgrp"]/form/div[3]/div[3]')
 			#p doc.xpath('//*[@id="jsch-schweekgrp"]/form/div[3]/div[3]/div[2]/table/tbody/tr/td[1]/div')
