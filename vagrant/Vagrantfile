@@ -59,6 +59,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         npm i -g typescript
 
+        sudo yum -y install git
+
         git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
         git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
