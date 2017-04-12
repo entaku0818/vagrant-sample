@@ -4,6 +4,7 @@
   "description": "vuejssample",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.15.2",
     "vue": "^2.1.8"
   },
   "devDependencies": {},
