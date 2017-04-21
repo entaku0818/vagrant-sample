@@ -49,46 +49,26 @@ var casper = require('casper').create({
   casper.then(function(){
 
 
-			for(var i=0; i<userList.length; i++){
-
-				var email = userList[i]["email"];
-				this.echo(email);
-				casper.wait(5000, function() {
-
-					this.fillSelectors('div.co-sel-search > form', {
-						 'input[name="mail"]': email
-				 }, true);
-				});
-
-				casper.wait(5000, function() {
-					this.capture('user' + i + '.png');
-					this.click('#sch-entry-other-to-dialog > div > div.co-sel-content.ui-layout-container > div.ui-layout-center.co-sel-center.ui-layout-pane.ui-layout-pane-center.ui-layout-container > div.ui-layout-north.co-sel-top.ui-layout-pane.ui-layout-pane-north > div.co-sel-search.co-sel-chooser-items > div > table > tbody > tr > td.co-sel-button > a');
-				});
-			}
-
-
-		//user登録
-		this.wait(5000, function() {
-			this.capture('userstart5.png');
-			this.click('body > div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.dn-dialog.co-sel-dialog.ui-draggable > div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix > div > button:nth-child(1) > span');
-			this.capture('userend5.png');
-		});
 		 this.wait(5000, function() {
       this.echo("スケジュール入力画面へ遷移完了");
       this.capture('scheduleInput.png');
 
-      var startHour = "22";
-      var endHour = "23";
+      var startHour = jsondata["starttime"].slice(0,2);
+      var endHour = jsondata["endtime"].slice(0,2);
+			var startMin = jsondata["starttime"].slice(-2);
+      var endMin = jsondata["endtime"].slice(-2);
+
+			var date = jsondata["date"].replace( /-/g  , "/" );
 
 			this.fillSelectors('form#inputfrm', {
-				'input[data-name="startdate"]': '2017/04/20',
-				'input[data-name="enddate"]': '2017/04/20',
-				 'input[name="detail"]':   'test',
+				'input[data-name="startdate"]': date,
+				'input[data-name="enddate"]': date,
+				 'input[name="detail"]':   jsondata["title"],
 
 				 'span:nth-child(5) > select.co-timepicker-hour': startHour,
 				 'span:nth-child(9) > select.co-timepicker-hour': endHour,
-				 'span:nth-child(5) > select.co-timepicker-minute': '00',
-				 'span:nth-child(9) > select.co-timepicker-minute': '00'
+				 'span:nth-child(5) > select.co-timepicker-minute': startMin,
+				 'span:nth-child(9) > select.co-timepicker-minute': endMin
 
 		 }, true);
 
