@@ -2,13 +2,12 @@
 
 var casper = require('casper').create({
     verbose: true,
-    logLevel: "debug"
 });
   var fs = require("fs");
   var json = fs.read("./add.json");
   var jsondata = JSON.parse(json);
 	var userList = jsondata["users"];
-  //フェイスブックにログインする
+
 
   casper.start("https://dn.ap-com.co.jp/cgi-bin/dneo/dneo.cgi?cmd=plantweekgrp&log=on#cmd=plantdaygrp", function(){
     //ログイン
@@ -17,14 +16,11 @@ var casper = require('casper').create({
 
     this.fill('#inputfrm', { UserID: 'endo', _word: 'soccer10' }, true);
 
-  		this.echo("ロード中");
   		this.wait(5000, function() {
-          this.echo("ログイン完了");
   				this.capture('login_done.png');
           this.click('#jsch-tab-plantdaygrp > a');
   		});
       this.wait(5000, function() {
-          this.echo("スケジュール1日画面へ遷移");
   			this.capture('scheduleURL.png');
         //lukeの予約画面
         this.mouse.doubleclick('#jsch-plantdaygrp > form > div.sch-gday-wrap.sch-cal-group-day.jsch-cal-list > div > div.cal-h-timebar.sch-gday-allday > div:nth-child(2) > div.cal-timebar-allday-body');
@@ -50,7 +46,6 @@ var casper = require('casper').create({
 
 
 		 this.wait(5000, function() {
-      this.echo("スケジュール入力画面へ遷移完了");
       this.capture('scheduleInput.png');
 
       var startHour = jsondata["starttime"].slice(0,2);
@@ -58,11 +53,11 @@ var casper = require('casper').create({
 			var startMin = jsondata["starttime"].slice(-2);
       var endMin = jsondata["endtime"].slice(-2);
 
-			var date = jsondata["date"].replace( /-/g  , "/" );
-
+			var startdate = jsondata["stertdate"].replace( /-/g  , "/" );
+			var enddate = jsondata["enddate"].replace( /-/g  , "/" );
 			this.fillSelectors('form#inputfrm', {
-				'input[data-name="startdate"]': date,
-				'input[data-name="enddate"]': date,
+				'input[data-name="startdate"]': startdate,
+				'input[data-name="enddate"]': enddate,
 				 'input[name="detail"]':   jsondata["title"],
 
 				 'span:nth-child(5) > select.co-timepicker-hour': startHour,
@@ -72,20 +67,24 @@ var casper = require('casper').create({
 
 		 }, true);
 
-        this.echo("時間選択完了");
 
     });
 
 
   });
   casper.then(function(){
-
+		this.wait(5000, function() {
       this.capture('schedulesubmit.png');
+			if(this.getElementAttribute('#jsch-plantweekgrp', 'style') == 'display: block;'){
+				this.echo('OK');
+			}else{
+				this.echo('NG');
+			}
+		});
   })
   //結果のキャプチャ
 
 	casper.run(function() {
     // echo results in some pretty fashion
-		this.echo('exiting..');
 		this.exit();
 	});

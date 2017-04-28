@@ -1,19 +1,8 @@
 {
-    "roomId": "1",
-    "startTime": "2200",
-    "endTime": "2300",
-		"title": "TDL定例会議",
-		"users":[
-			{
-					"id": "",
-					"name": "遠藤 拓弥",
-					"email":"endo@ap-com.co.jp"
-			},
-			{
-					"id": "",
-					"name": "杉山さん",
-					"email":"yasunori.sugiyama@ap-com.co.jp"
-			}
-		],
-		"secretFlag": "1"
+    "id": "1",
+    "stertdate": "2017-04-24",
+    "enddate": "2017-04-24",
+    "starttime": "22:00",
+    "endtime": "23:00",
+    "title": "TDL定例会議"
 }
